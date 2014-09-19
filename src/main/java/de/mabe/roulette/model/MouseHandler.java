@@ -4,11 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import de.mabe.roulette.Debugger;
-
 public class MouseHandler implements MouseMotionListener, MouseListener {
-
-    Debugger debug;
     MouseClickListener clickListener = null;
     private int cordX;
     private int cordY;
@@ -18,8 +14,6 @@ public class MouseHandler implements MouseMotionListener, MouseListener {
     private boolean button1;
 
     public MouseHandler() {
-        debug = new Debugger(this);
-
         rotationX = 30;
         rotationZ = 30;
         distance = 100;
@@ -58,7 +52,6 @@ public class MouseHandler implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        debug.out("mouse clicked");
         if (clickListener != null) {
             clickListener.mouseClicked(e);
         }
@@ -66,7 +59,6 @@ public class MouseHandler implements MouseMotionListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        debug.out("mouse pressed");
         cordX = e.getX();
         cordY = e.getY();
 
@@ -75,17 +67,14 @@ public class MouseHandler implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        debug.out("mouse released");
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        debug.out("mouse entered");
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        debug.out("mouse exited");
     }
 
     /**

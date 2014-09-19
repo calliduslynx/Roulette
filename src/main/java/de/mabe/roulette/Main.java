@@ -22,16 +22,11 @@ import com.jogamp.opengl.util.Animator;
 import de.mabe.roulette.model.MouseHandler;
 
 public class Main {
-    Debugger debug;
-
     public static void main(String[] args) {
         new Main();
     }
 
     public Main() {
-        debug = new Debugger(this);
-        debug.out("starte");
-
         // **********************************************
         // * Fenster erstellen und Einstellungen machen *
         // **********************************************
@@ -68,12 +63,12 @@ public class Main {
         // Hardwarebeschleuning an!
         capabilities.setHardwareAccelerated(true);
         // eigentliches Canvas erstellen
-        GLCanvas canvas = null;
+        GLCanvas canvas = new GLCanvas();
 
         MouseHandler mouseHandler = new MouseHandler();
         MyAnimation myAnimation = new MyAnimation(mouseHandler);
 
-        // canvas.addGLEventListener(myAnimation);
+        canvas.addGLEventListener(myAnimation);
 
         // Maus initialisieren
         canvas.addMouseListener(mouseHandler);

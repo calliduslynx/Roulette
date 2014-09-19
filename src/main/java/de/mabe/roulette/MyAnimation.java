@@ -3,8 +3,9 @@ package de.mabe.roulette;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.glu.GLU;
 
 import de.mabe.roulette.model.Ball;
 import de.mabe.roulette.model.BallCalculator;
@@ -30,6 +31,7 @@ public class MyAnimation extends AnimationObject implements MouseClickListener {
 
     @Override
     public void init() {
+        GLU glu = new GLU();
         rouletteKessel = new RouletteKessel(gl, glu);
         ball = new Ball(gl, glu);
 
@@ -53,16 +55,16 @@ public class MyAnimation extends AnimationObject implements MouseClickListener {
     public void display(GLAutoDrawable drawable) {
         countFrame(); // scounting frames in console
 
-        gl = drawable.getGL();
+        gl = drawable.getGL().getGL2();
 
         // Bildschirm cleanen
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+        gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
 
         setCamera();
 
         // ***** Vorbeitung
-        gl.glMatrixMode(GL.GL_MODELVIEW);
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity(); // ??
 
         // ***** eigentliche Anzeige setzen

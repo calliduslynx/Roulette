@@ -1,13 +1,6 @@
 package de.mabe.roulette.model;
 
-import java.text.DecimalFormat;
-
-import de.mabe.roulette.Debugger;
-
 public class RouletteKesselCalculator {
-
-    Debugger debug;
-    // <editor-fold desc="constants">
     int phasesCount = 3;
     double phaseTime1 = 1500.0;
     double phaseTime2 = 0300.0;
@@ -15,7 +8,7 @@ public class RouletteKesselCalculator {
     private Phase[] phases;
     double maxSpeed = 3.0 * 360 / 1000;
     double decay = 1;
-    // </editor-fold>
+
     /***
      * Zeit zu der die Berechnung gestartet wurde
      */
@@ -26,16 +19,12 @@ public class RouletteKesselCalculator {
     int currentPhase;
 
     public RouletteKesselCalculator(long startTime) {
-        debug = new Debugger(this);
         this.startTime = startTime;
         currentPhase = 0;
 
         initPhases();
 
         preCalculate();
-
-        debug();
-
     }
 
     public double getRotation(double currTime) {
@@ -49,16 +38,8 @@ public class RouletteKesselCalculator {
         }
 
         double calcTime = currTime - phases[currentPhase].timeBeforePhase;
-        debug.out("calcTime:" + calcTime + Debugger.NNL);
         double returnValue = phases[currentPhase].degreesBeforePhase
                 + phases[currentPhase].getRotation(calcTime);
-
-        DecimalFormat f = new DecimalFormat("#00000");
-        DecimalFormat f2 = new DecimalFormat("#0.0");
-
-        debug.out("[" + f.format(currTime) + "] "
-                + f.format(returnValue)
-                + " (" + f2.format(returnValue / 360 * 100) + "%)      (#" + currentPhase + ")");
 
         returnValue = returnValue % 360;
 
@@ -108,22 +89,6 @@ public class RouletteKesselCalculator {
                 break;
 
             }
-
-        }
-    }
-
-    public void debug() {
-        debug.out("debugging");
-        debug.out("phases counter: " + phasesCount);
-        for (int i = 0; i < phasesCount; i++) {
-            Phase p = phases[i];
-            debug.out("phase #" + (i + 1));
-            debug.out("  timeBeforePhase: " + p.timeBeforePhase);
-            debug.out("  timeInPhase: " + p.timeInPhase);
-            debug.out("  timeAfterPhase: " + p.timeAfterPhase);
-            debug.out("  degreesBeforePhase: " + p.degreesBeforePhase);
-            debug.out("  degreesInPhase: " + p.degreesInPhase);
-            debug.out("  degreesAfterPhase: " + p.degreesAfterPhase);
 
         }
     }
