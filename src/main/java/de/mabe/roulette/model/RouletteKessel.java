@@ -10,7 +10,6 @@ import de.mabe.roulette.tools.TextureLoader;
 
 public class RouletteKessel implements RouletteKesselParam {
     private GL2 gl;
-    // <editor-fold desc="texture members">
     private Texture textureWood;
     private Texture textureMetal;
     private Texture[] textureNumbers;
@@ -18,7 +17,6 @@ public class RouletteKessel implements RouletteKesselParam {
     private Texture textureRed;
     private Texture textureGreen;
     private Texture textureSilver;
-    // </editor-fold>
     private RouletteKesselNumbers rouletteKesselNumbers;
 
     // *******************************************
@@ -59,7 +57,6 @@ public class RouletteKessel implements RouletteKesselParam {
         rollField();
 
         gl.glRotated(curAngle, 0, 1, 0);
-        // gl.glTranslatef(0, 10, 0);
 
         numField();
         layField();
@@ -201,10 +198,10 @@ public class RouletteKessel implements RouletteKesselParam {
             textureNumbers[rouletteKesselNumbers.get()[i]].bind(gl);
 
             drawQuad(
-                    new Point3D(sin(angle * (i + 0)) * radius_layField, height_layField, cos(angle * (i + 0)) * radius_layField),
-                    new Point3D(sin(angle * (i + 0)) * radius_numField, height_rollField_lower, cos(angle * (i + 0)) * radius_numField),
+                    new Point3D(sin(angle * (i + 1)) * radius_layField, height_layField, cos(angle * (i + 1)) * radius_layField),
                     new Point3D(sin(angle * (i + 1)) * radius_numField, height_rollField_lower, cos(angle * (i + 1)) * radius_numField),
-                    new Point3D(sin(angle * (i + 1)) * radius_layField, height_layField, cos(angle * (i + 1)) * radius_layField));
+                    new Point3D(sin(angle * (i + 0)) * radius_numField, height_rollField_lower, cos(angle * (i + 0)) * radius_numField),
+                    new Point3D(sin(angle * (i + 0)) * radius_layField, height_layField, cos(angle * (i + 0)) * radius_layField));
         }
     }
 
