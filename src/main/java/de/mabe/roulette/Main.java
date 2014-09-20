@@ -9,18 +9,11 @@
 
 package de.mabe.roulette;
 
-import java.awt.Color;
-import java.awt.Frame;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.awt.GLCanvas;
 
-import com.jogamp.opengl.util.Animator;
-
 import de.mabe.roulette.model.MouseHandler;
-import de.mabe.roulette.scenes.MyAnimation;
+import de.mabe.roulette.scenes.RollingBallScene;
+import de.mabe.roulette.util.GLUtil;
 
 public class Main {
     public static void main(String[] args) {
@@ -28,88 +21,15 @@ public class Main {
     }
 
     public Main() {
-        // **********************************************
-        // * Fenster erstellen und Einstellungen machen *
-        // **********************************************
-        // Fenster erstellen und gleichzeitig Titel setzen
-
-        Frame frame = new Frame("Simple JOGL Application");
-        // Position setzen
-        frame.setLocation(0, 0);
-        // Größe des Fensters setzen
-        frame.setSize(800, 600);
-        // Hintergrundfarbe setzen
-        frame.setBackground(Color.WHITE);
-
-        // ********************
-        // * Canvas erstellen *
-        // ********************
-        // Canvas stellt das eigentlich angezeigte Display dar
-
-        // Einstellungsmodul erstellen
-        GLCapabilities capabilities = new GLCapabilities(null);
-        // einige Einstellungen
-        capabilities.setRedBits(8);
-        capabilities.setBlueBits(8);
-        capabilities.setGreenBits(8);
-        capabilities.setAlphaBits(8);
-
-        // stellt Fullscreen Antialiasing an
-        capabilities.setDoubleBuffered(true);
-        capabilities.setStencilBits(1);
-        capabilities.setSampleBuffers(true);
-        capabilities.setNumSamples(8); // <-- für 8-fach Sampling
-        // capabilities.setNumSamples(4);
-
-        // Hardwarebeschleuning an!
-        capabilities.setHardwareAccelerated(true);
-        // eigentliches Canvas erstellen
-        GLCanvas canvas = new GLCanvas(capabilities);
+        GLCanvas canvas = GLUtil.getCanvasInDefaultFrame("Roulette");
 
         MouseHandler mouseHandler = new MouseHandler();
-        MyAnimation myAnimation = new MyAnimation(mouseHandler);
+        RollingBallScene rollingBallScene = new RollingBallScene(mouseHandler);
 
-        canvas.addGLEventListener(myAnimation);
+        canvas.addGLEventListener(rollingBallScene);
 
         // Maus initialisieren
         canvas.addMouseListener(mouseHandler);
         canvas.addMouseMotionListener(mouseHandler);
-
-        // Canvas meinem Frame hinzufügen
-        frame.add(canvas);
-
-        /**********************
-         * Animator erstellen *
-         **********************/
-        final Animator animator = new Animator(canvas);
-
-        // fügt eine Routine hinzu, die dafür sorgt, dass die Animation nach dem
-        // schließen des Fensters auch beendet wird
-        frame.addWindowListener(
-                new WindowAdapter() {
-                    // new WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        // Run this on another thread than the AWT event queue to
-                        // make sure the call to Animator.stop() completes before
-                        // exiting
-                        new Thread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                animator.stop();
-                                System.exit(0);
-                            }
-                        }).start();
-                    }
-                }
-                );
-
-        // hiermit wird gestartet, dass immer wieder die display-Methode aufgerufen
-        // wird wenn ein wenig Zeit zwischen ist
-        animator.start();
-
-        // Fenster anzeigen, muss NACH frame.add kommen
-        frame.setVisible(true);
     }
 }

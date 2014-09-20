@@ -16,14 +16,14 @@ import de.mabe.roulette.model.RouletteKesselCalculator;
 import de.mabe.roulette.model.kessel.Kessel;
 import de.mabe.roulette.tools.AnimationObject;
 
-public class MyAnimation extends AnimationObject implements MouseClickListener {
+public class RollingBallScene extends AnimationObject implements MouseClickListener {
     private double angle;
     private Ball ball;
     private BallCalculator ballCalculator;
     private Kessel kessel;
     private RouletteKesselCalculator rouletteKesselCalculator;
 
-    public MyAnimation(MouseHandler mouseHandler) {
+    public RollingBallScene(MouseHandler mouseHandler) {
         super(mouseHandler);
         mouseHandler.setMouseClickListener(this);
         reset();
