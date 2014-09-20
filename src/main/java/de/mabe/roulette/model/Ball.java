@@ -18,5 +18,4 @@ public class Ball extends VisualElement {
 
         gl.glPopMatrix();
     }
-
 }

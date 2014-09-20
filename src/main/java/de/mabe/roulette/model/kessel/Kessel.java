@@ -1,7 +1,6 @@
 package de.mabe.roulette.model.kessel;
 
 import javax.media.opengl.GL2;
-import javax.media.opengl.glu.GLU;
 
 import com.jogamp.opengl.util.texture.Texture;
 
@@ -10,8 +9,7 @@ import de.mabe.roulette.model.Point3D;
 import de.mabe.roulette.model.RouletteKesselNumbers;
 import de.mabe.roulette.model.RouletteKesselParam;
 
-public class Kessel implements RouletteKesselParam {
-    private GL2 gl;
+public class Kessel extends VisualElement implements RouletteKesselParam {
     private Texture textureWood;
     private Texture textureMetal;
     private Texture[] textureNumbers;
@@ -22,11 +20,13 @@ public class Kessel implements RouletteKesselParam {
     private RouletteKesselNumbers rouletteKesselNumbers;
 
     // *******************************************
-    public Kessel(GL2 gl, GLU glu) {
-        this.gl = gl;
-
+    public Kessel() {
         rouletteKesselNumbers = new RouletteKesselNumbers(RouletteKesselNumbers.ORIGINAL_COUNT);
+    }
 
+    @Override
+    public void applyGL(GL2 gl) {
+        super.applyGL(gl);
         loadTextures();
     }
 
@@ -311,5 +311,9 @@ public class Kessel implements RouletteKesselParam {
 
     private double getAngle(double angle) {
         return angle / 180 * Math.PI;
+    }
+
+    @Override
+    public void show() {
     }
 }

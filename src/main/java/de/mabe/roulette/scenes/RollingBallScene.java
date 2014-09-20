@@ -4,43 +4,43 @@ import java.awt.event.MouseEvent;
 import java.util.Calendar;
 
 import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.glu.GLU;
+import javax.media.opengl.awt.GLCanvas;
 
 import de.mabe.roulette.model.Ball;
 import de.mabe.roulette.model.BallCalculator;
-import de.mabe.roulette.model.MouseClickListener;
-import de.mabe.roulette.model.MouseHandler;
+import de.mabe.roulette.model.MouseAdapter;
 import de.mabe.roulette.model.Point3D;
 import de.mabe.roulette.model.RouletteKesselCalculator;
 import de.mabe.roulette.model.kessel.Kessel;
-import de.mabe.roulette.tools.AnimationObject;
 
-public class RollingBallScene extends AnimationObject implements MouseClickListener {
+public class RollingBallScene implements Scene {
     private double angle;
-    private Ball ball;
+
     private BallCalculator ballCalculator;
-    private Kessel kessel;
     private RouletteKesselCalculator rouletteKesselCalculator;
 
-    public RollingBallScene(MouseHandler mouseHandler) {
-        super(mouseHandler);
-        mouseHandler.setMouseClickListener(this);
+    private Ball ball;
+    private Kessel kessel;
+
+    public RollingBallScene(GLCanvas canvas) {
+        canvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                reset();
+            }
+        });
+
         reset();
     }
 
     @Override
-    public void init() {
-        GLU glu = new GLU();
-        kessel = new Kessel(gl, glu);
+    public void init(GL2 gl) {
+        kessel = new Kessel();
+        kessel.applyGL(gl);
+
         ball = new Ball();
         ball.applyGL(gl);
 
-        reset();
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent event) {
         reset();
     }
 
@@ -49,21 +49,8 @@ public class RollingBallScene extends AnimationObject implements MouseClickListe
         ballCalculator = new BallCalculator(System.currentTimeMillis());
     }
 
-    /***
-     * wird bei jedem Neuzeichnen aufgerufen bspw. bei vom Animator
-     */
     @Override
-    public void display(GLAutoDrawable drawable) {
-        countFrame(); // scounting frames in console
-
-        gl = drawable.getGL().getGL2();
-
-        // Bildschirm cleanen
-        gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
-        gl.glLoadIdentity();
-
-        setCamera();
-
+    public void display(GL2 gl) {
         // ***** Vorbeitung
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity(); // ??
@@ -90,10 +77,5 @@ public class RollingBallScene extends AnimationObject implements MouseClickListe
 
         // ***** Aufräumen
         gl.glPopMatrix();
-        gl.glFlush();
-    }
-
-    @Override
-    public void dispose(GLAutoDrawable drawable) {
     }
 }

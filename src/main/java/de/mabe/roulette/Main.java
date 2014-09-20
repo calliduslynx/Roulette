@@ -11,8 +11,11 @@ package de.mabe.roulette;
 
 import javax.media.opengl.awt.GLCanvas;
 
-import de.mabe.roulette.model.MouseHandler;
+import de.mabe.roulette.core.camera.Camera;
+import de.mabe.roulette.core.camera.MouseSinglePointCamera;
 import de.mabe.roulette.scenes.RollingBallScene;
+import de.mabe.roulette.scenes.Scene;
+import de.mabe.roulette.tools.SceneManager;
 import de.mabe.roulette.util.GLUtil;
 
 public class Main {
@@ -23,13 +26,10 @@ public class Main {
     public Main() {
         GLCanvas canvas = GLUtil.getCanvasInDefaultFrame("Roulette");
 
-        MouseHandler mouseHandler = new MouseHandler();
-        RollingBallScene rollingBallScene = new RollingBallScene(mouseHandler);
+        Camera camera = new MouseSinglePointCamera(canvas);
+        Scene scene = new RollingBallScene(canvas);
+        SceneManager sceneManager = new SceneManager(scene, camera);
 
-        canvas.addGLEventListener(rollingBallScene);
-
-        // Maus initialisieren
-        canvas.addMouseListener(mouseHandler);
-        canvas.addMouseMotionListener(mouseHandler);
+        canvas.addGLEventListener(sceneManager);
     }
 }
