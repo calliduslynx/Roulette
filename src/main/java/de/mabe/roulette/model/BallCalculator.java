@@ -2,8 +2,6 @@ package de.mabe.roulette.model;
 
 import java.text.DecimalFormat;
 
-import de.mabe.roulette.tools.Point3D;
-
 public class BallCalculator {
     /**/DecimalFormat f1 = new DecimalFormat("#00.000");
     /**/DecimalFormat f2 = new DecimalFormat("#0.0");
@@ -70,7 +68,6 @@ public class BallCalculator {
     }
 
     public Point3D getBallPosition(double currTime, double kesselRotation) {
-
         currTime = currTime - startTime;
         // ***** Kugelflug verlangsamen
         // currTime /= 3.0;
@@ -286,38 +283,17 @@ abstract class Phase {
         return calculateHeight(timeInPhase);
     }
 
-    /***
-     * abstrakte Funktion, welche nur intern aufgerufen wird
-     * 
-     * @param timeInPhase
-     * @return
-     */
     abstract double calculateRotation(double timeInPhase, double kesselRotation);
 
-    /***
-     * abstrakte Funktion, welche nur intern aufgerufen wird
-     * 
-     * @param timeInPhase
-     * @return
-     */
     abstract double calculateDistance(double timeInPhase);
 
-    /***
-     * abstrakte Funktion, welche nur intern aufgerufen wird
-     * 
-     * @param timeInPhase
-     * @return
-     */
     abstract double calculateHeight(double timeInPhase);
 
     @Override
     public String toString() {
-
-        String str = " debugging Phase:\n"
+        return " debugging Phase:\n"
                 + "Time: b: " + f2.format(time.beforePhase) + " i: " + f2.format(time.inPhase) + " a: " + f2.format(time.afterPhase) + "\n"
                 + "Rotation: b: " + f2.format(rotation.beforePhase) + "� i: " + f2.format(rotation.inPhase) + "� a: " + f2.format(rotation.afterPhase) + "�\n"
                 + "Distance: b: " + f2.format(distance.beforePhase) + " i: " + f2.format(distance.inPhase) + " a: " + f2.format(distance.afterPhase) + "\n";
-
-        return str;
     }
 }

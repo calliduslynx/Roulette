@@ -20,6 +20,7 @@ import javax.media.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.Animator;
 
 import de.mabe.roulette.model.MouseHandler;
+import de.mabe.roulette.scenes.MyAnimation;
 
 public class Main {
     public static void main(String[] args) {
@@ -63,7 +64,7 @@ public class Main {
         // Hardwarebeschleuning an!
         capabilities.setHardwareAccelerated(true);
         // eigentliches Canvas erstellen
-        GLCanvas canvas = new GLCanvas();
+        GLCanvas canvas = new GLCanvas(capabilities);
 
         MouseHandler mouseHandler = new MouseHandler();
         MyAnimation myAnimation = new MyAnimation(mouseHandler);

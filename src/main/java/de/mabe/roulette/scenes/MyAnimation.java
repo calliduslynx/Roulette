@@ -1,4 +1,4 @@
-package de.mabe.roulette;
+package de.mabe.roulette.scenes;
 
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
@@ -11,16 +11,16 @@ import de.mabe.roulette.model.Ball;
 import de.mabe.roulette.model.BallCalculator;
 import de.mabe.roulette.model.MouseClickListener;
 import de.mabe.roulette.model.MouseHandler;
-import de.mabe.roulette.model.RouletteKessel;
+import de.mabe.roulette.model.Point3D;
 import de.mabe.roulette.model.RouletteKesselCalculator;
+import de.mabe.roulette.model.kessel.Kessel;
 import de.mabe.roulette.tools.AnimationObject;
-import de.mabe.roulette.tools.Point3D;
 
 public class MyAnimation extends AnimationObject implements MouseClickListener {
     private double angle;
     private Ball ball;
     private BallCalculator ballCalculator;
-    private RouletteKessel rouletteKessel;
+    private Kessel kessel;
     private RouletteKesselCalculator rouletteKesselCalculator;
 
     public MyAnimation(MouseHandler mouseHandler) {
@@ -32,8 +32,9 @@ public class MyAnimation extends AnimationObject implements MouseClickListener {
     @Override
     public void init() {
         GLU glu = new GLU();
-        rouletteKessel = new RouletteKessel(gl, glu);
-        ball = new Ball(gl, glu);
+        kessel = new Kessel(gl, glu);
+        ball = new Ball();
+        ball.applyGL(gl);
 
         reset();
     }
@@ -82,10 +83,10 @@ public class MyAnimation extends AnimationObject implements MouseClickListener {
         // CoordSys.show( gl );
 
         // RouletteKessel anzeigen
-        rouletteKessel.show(gl, angle);
+        kessel.show(gl, angle);
 
         Point3D p = ballCalculator.getBallPosition(curTime, -angle);
-        ball.show(gl, p);
+        ball.show(p);
 
         // ***** Aufräumen
         gl.glPopMatrix();

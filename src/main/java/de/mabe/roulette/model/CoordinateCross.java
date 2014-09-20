@@ -2,25 +2,26 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.mabe.roulette.tools;
+package de.mabe.roulette.model;
 
 import javax.media.opengl.GL2;
 
-import com.jogamp.opengl.util.gl2.GLUT;
+import de.mabe.roulette.core.VisualElement;
 
 /**
- *
- * @author drcox
+ * 
  */
-public class CoordSys {
-
-    public static void show(GL2 gl) {
-        GLUT glut = new GLUT();
+public class CoordinateCross extends VisualElement {
+    @Override
+    public void show() {
         double CoordSysThickness = 0.2;
         double CoordSysLength = 100.0;
 
-        boolean prevState = gl.glIsEnabled(gl.GL_LIGHTING);
-        gl.glDisable(gl.GL_LIGHTING);
+        boolean prevState = gl.glIsEnabled(GL2.GL_LIGHTING);
+        gl.glDisable(GL2.GL_LIGHTING);
+
+        gl.glPushMatrix();
+        gl.glTranslated(position.x, position.y, position.z);
 
         gl.glPushMatrix(); // ***** X-Achse *****
         gl.glColor3d(1.0, 0.0, 0.0);
@@ -40,15 +41,10 @@ public class CoordSys {
         glut.glutSolidCube(1);
         gl.glPopMatrix();
 
+        gl.glPopMatrix();
+
         if (prevState) {
             gl.glEnable(GL2.GL_LIGHTING);
         }
-    }
-
-    public static void show(GL2 gl, double x, double y, double z) {
-        gl.glPushMatrix();
-        gl.glTranslated(x, y, z);
-        CoordSys.show(gl);
-        gl.glPopMatrix();
     }
 }

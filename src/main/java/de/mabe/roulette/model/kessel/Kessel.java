@@ -1,14 +1,16 @@
-package de.mabe.roulette.model;
+package de.mabe.roulette.model.kessel;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
 
 import com.jogamp.opengl.util.texture.Texture;
 
-import de.mabe.roulette.tools.Point3D;
-import de.mabe.roulette.tools.TextureLoader;
+import de.mabe.roulette.core.VisualElement;
+import de.mabe.roulette.model.Point3D;
+import de.mabe.roulette.model.RouletteKesselNumbers;
+import de.mabe.roulette.model.RouletteKesselParam;
 
-public class RouletteKessel implements RouletteKesselParam {
+public class Kessel implements RouletteKesselParam {
     private GL2 gl;
     private Texture textureWood;
     private Texture textureMetal;
@@ -20,7 +22,7 @@ public class RouletteKessel implements RouletteKesselParam {
     private RouletteKesselNumbers rouletteKesselNumbers;
 
     // *******************************************
-    public RouletteKessel(GL2 gl, GLU glu) {
+    public Kessel(GL2 gl, GLU glu) {
         this.gl = gl;
 
         rouletteKesselNumbers = new RouletteKesselNumbers(RouletteKesselNumbers.ORIGINAL_COUNT);
@@ -29,18 +31,18 @@ public class RouletteKessel implements RouletteKesselParam {
     }
 
     private void loadTextures() {
-        textureWood = TextureLoader.loadTexture(gl, "resources/images/holz.jpg");
-        textureMetal = TextureLoader.loadTexture(gl, "resources/images/gold2.png");
-        textureSilver = TextureLoader.loadTexture(gl, "resources/images/silber.png");
-        textureRed = TextureLoader.loadTexture(gl, "resources/images/red.png");
-        textureGreen = TextureLoader.loadTexture(gl, "resources/images/green.png");
-        textureBlack = TextureLoader.loadTexture(gl, "resources/images/black.png");
+        textureWood = VisualElement.loadTexture(gl, "holz.jpg");
+        textureMetal = VisualElement.loadTexture(gl, "gold2.png");
+        textureSilver = VisualElement.loadTexture(gl, "silber.png");
+        textureRed = VisualElement.loadTexture(gl, "red.png");
+        textureGreen = VisualElement.loadTexture(gl, "green.png");
+        textureBlack = VisualElement.loadTexture(gl, "black.png");
 
         int numberCount = 37; // means numbers from 0 to numberCount - 1
         textureNumbers = new Texture[numberCount];
 
         for (int i = 0; i < numberCount; i++) {
-            textureNumbers[i] = TextureLoader.loadTexture(gl, "resources/images/nr_" + i + ".png");
+            textureNumbers[i] = VisualElement.loadTexture(gl, "nr_" + i + ".png");
         }
 
         // TODO Texturen f�r Zahlen neu -> ohne Rahmen
