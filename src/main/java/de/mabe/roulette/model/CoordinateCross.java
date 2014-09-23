@@ -13,7 +13,7 @@ import de.mabe.roulette.core.VisualElement;
  */
 public class CoordinateCross extends VisualElement {
     @Override
-    public void show() {
+    public void showInternal() {
         double CoordSysThickness = 0.2;
         double CoordSysLength = 100.0;
 

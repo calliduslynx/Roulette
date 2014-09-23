@@ -1,21 +1,20 @@
 package de.mabe.roulette.model;
 
+import com.jogamp.opengl.util.texture.Texture;
+
 import de.mabe.roulette.core.VisualElement;
 
 public class Ball extends VisualElement {
-    public Ball() {
-        setTextureResource("silber.png");
+    private Texture texture;
+
+    @Override
+    protected void init() {
+        texture = loadTexture("silber.png");
     }
 
     @Override
-    public void show() {
-        gl.glPushMatrix();
-
-        gl.glTranslated(position.x, position.y, position.z);
-
+    public void showInternal() {
         texture.bind(gl);
         glut.glutSolidSphere(1.5, 10, 10);
-
-        gl.glPopMatrix();
     }
 }
