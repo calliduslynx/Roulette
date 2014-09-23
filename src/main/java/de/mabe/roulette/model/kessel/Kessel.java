@@ -6,10 +6,8 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import de.mabe.roulette.core.VisualElement;
 import de.mabe.roulette.model.Point3D;
-import de.mabe.roulette.model.RouletteKesselNumbers;
-import de.mabe.roulette.model.RouletteKesselParam;
 
-public class Kessel extends VisualElement implements RouletteKesselParam {
+public class Kessel extends VisualElement implements RouletteKesselProperties {
     private Texture textureWood;
     private Texture textureMetal;
     private Texture[] textureNumbers;
@@ -18,6 +16,8 @@ public class Kessel extends VisualElement implements RouletteKesselParam {
     private Texture textureGreen;
     private Texture textureSilver;
     private RouletteKesselNumbers rouletteKesselNumbers;
+
+    private double curAngle;
 
     // *******************************************
     public Kessel() {
@@ -50,9 +50,8 @@ public class Kessel extends VisualElement implements RouletteKesselParam {
         // TODO Rauten einf�gen
     }
 
-    // *******************************************
-    public void show(GL2 gl, double curAngle) {
-        this.gl = gl;
+    @Override
+    public void show() {
         gl.glPushMatrix();
         caseField();
         outerField();
@@ -65,6 +64,10 @@ public class Kessel extends VisualElement implements RouletteKesselParam {
         middleField();
         spinner();
         gl.glPopMatrix();
+    }
+
+    public void setAngle(double curAngle) {
+        this.curAngle = curAngle;
     }
 
     // *******************************************
@@ -113,10 +116,6 @@ public class Kessel extends VisualElement implements RouletteKesselParam {
                     new Point3D(0, spinner_crown_height, 0),
                     new Point3D(0, spinner_crown_height, 0),
                     new Point3D(sin(angle * (i + 1)) * spinner_crown_upper_radius, spinner_crown_height, cos(angle * (i + 1)) * spinner_crown_upper_radius));
-
-            if (false) {
-                continue;
-            }
 
             // ***** Flügel anzeichnen
             for (int j = 0; j < spinner_arrow_count; j++) {
@@ -313,7 +312,4 @@ public class Kessel extends VisualElement implements RouletteKesselParam {
         return angle / 180 * Math.PI;
     }
 
-    @Override
-    public void show() {
-    }
 }

@@ -2,13 +2,19 @@ package de.mabe.roulette.core.camera;
 
 import javax.media.opengl.awt.GLCanvas;
 
-import de.mabe.roulette.model.MouseAdapter;
+import de.mabe.roulette.util.MouseAdapter;
 
+/**
+ * Camera which focuses on one point (0,0,0). With mouse drag you are able to move around
+ */
 public class MouseSinglePointCamera extends Camera {
     private int rotationX;
     private int rotationZ;
     private int distance;
 
+    /**
+     * Camera which focuses on one point (0,0,0). With mouse drag you are able to move around
+     */
     public MouseSinglePointCamera(GLCanvas canvas) {
         rotationX = 30;
         rotationZ = 30;

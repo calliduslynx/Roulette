@@ -1,4 +1,4 @@
-package de.mabe.roulette.model;
+package de.mabe.roulette.model.kessel;
 
 public class RouletteKesselNumbers {
 

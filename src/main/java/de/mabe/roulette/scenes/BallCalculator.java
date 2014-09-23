@@ -1,6 +1,8 @@
-package de.mabe.roulette.model;
+package de.mabe.roulette.scenes;
 
 import java.text.DecimalFormat;
+
+import de.mabe.roulette.model.Point3D;
 
 public class BallCalculator {
     /**/DecimalFormat f1 = new DecimalFormat("#00.000");

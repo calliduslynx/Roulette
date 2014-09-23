@@ -1,8 +1,9 @@
-package de.mabe.roulette.tools;
+package de.mabe.roulette.core;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 
 import com.jogamp.opengl.util.gl2.GLUT;
@@ -22,9 +23,11 @@ public class SceneManager implements GLEventListener {
     protected int height;
     protected int width;
 
-    public SceneManager(Scene scene, Camera camera) {
+    public SceneManager(Scene scene, Camera camera, GLCanvas canvas) {
         this.scene = scene;
         this.camera = camera;
+
+        canvas.addGLEventListener(this);
     }
 
     /***
@@ -72,6 +75,9 @@ public class SceneManager implements GLEventListener {
 
         setCamera();
 
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
+        gl.glLoadIdentity();
+
         scene.display(gl);
 
         gl.glFlush();
@@ -92,5 +98,4 @@ public class SceneManager implements GLEventListener {
     @Override
     public void dispose(GLAutoDrawable drawable) {
     }
-
 }

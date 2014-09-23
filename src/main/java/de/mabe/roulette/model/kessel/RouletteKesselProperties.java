@@ -1,6 +1,6 @@
-package de.mabe.roulette.model;
+package de.mabe.roulette.model.kessel;
 
-public interface RouletteKesselParam {
+public interface RouletteKesselProperties {
     public int parts = 37;
     public double angle = 360.0 / parts;
 
@@ -31,7 +31,7 @@ public interface RouletteKesselParam {
     public double spinner_cone_height = spinner_shaft_height + 3.0;
     public double spinner_crown_height = spinner_cone_height + 2.0;
 
-    public int spinner_arrow_count = 4;
+    public int spinner_arrow_count = 5;
     public double spinner_arrow_angle = 360.0 / spinner_arrow_count;
     public double spinner_arrow_height = (spinner_cone_height - spinner_shaft_height) / 2 + spinner_shaft_height;
     public double spinner_arrow_length = 20;

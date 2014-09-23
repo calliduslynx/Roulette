@@ -1,4 +1,4 @@
-package de.mabe.roulette.model;
+package de.mabe.roulette.scenes;
 
 public class RouletteKesselCalculator {
     int phasesCount = 3;

@@ -8,7 +8,7 @@ public class Camera {
     protected Point3D up;
 
     public Camera() {
-        position = new Point3D(10, 10, 10);
+        position = new Point3D(100, 100, 100);
         target = new Point3D(0, 0, 0);
         up = new Point3D(0, 1, 0);
     }

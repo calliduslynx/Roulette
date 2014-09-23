@@ -22,14 +22,13 @@ public abstract class VisualElement {
     }
 
     public void applyGL(GL2 gl) {
-
         this.gl = gl;
-        glut = new GLUT();
+        glut = new GLUT(); // TODO check!
 
-        loadTexture();
+        loadTextureIfNeeded(); // TODO check!
     }
 
-    private void loadTexture() {
+    private void loadTextureIfNeeded() {
         if (texture == null && textureResource != null) {
             texture = loadTexture(textureResource);
         }
@@ -40,11 +39,6 @@ public abstract class VisualElement {
     }
 
     public abstract void show();
-
-    public void show(Point3D position) {
-        setPosition(position);
-        show();
-    }
 
     private Texture loadTexture(String resource) {
         resource = "src/main/resources/images/" + resource;
@@ -66,6 +60,7 @@ public abstract class VisualElement {
         }
     }
 
+    // TODO remove
     public static Texture loadTexture(GL2 gl, String resource) {
         resource = "src/main/resources/images/" + resource;
         try {

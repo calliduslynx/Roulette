@@ -3,17 +3,14 @@ package de.mabe.roulette.scenes;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
 
-import javax.media.opengl.GL2;
 import javax.media.opengl.awt.GLCanvas;
 
 import de.mabe.roulette.model.Ball;
-import de.mabe.roulette.model.BallCalculator;
-import de.mabe.roulette.model.MouseAdapter;
 import de.mabe.roulette.model.Point3D;
-import de.mabe.roulette.model.RouletteKesselCalculator;
 import de.mabe.roulette.model.kessel.Kessel;
+import de.mabe.roulette.util.MouseAdapter;
 
-public class RollingBallScene implements Scene {
+public class RollingBallScene extends Scene {
     private double angle;
 
     private BallCalculator ballCalculator;
@@ -34,12 +31,11 @@ public class RollingBallScene implements Scene {
     }
 
     @Override
-    public void init(GL2 gl) {
+    public void internalInit() {
         kessel = new Kessel();
-        kessel.applyGL(gl);
-
         ball = new Ball();
-        ball.applyGL(gl);
+
+        addVisualElements(kessel, ball);
 
         reset();
     }
@@ -50,14 +46,7 @@ public class RollingBallScene implements Scene {
     }
 
     @Override
-    public void display(GL2 gl) {
-        // ***** Vorbeitung
-        gl.glMatrixMode(GL2.GL_MODELVIEW);
-        gl.glLoadIdentity(); // ??
-
-        // ***** eigentliche Anzeige setzen
-        gl.glPushMatrix();
-
+    public void internalDisplay() {
         // Drehung berechnen
         long curTime = Calendar.getInstance().getTimeInMillis();
         /*
@@ -66,16 +55,9 @@ public class RollingBallScene implements Scene {
          */
 
         angle = rouletteKesselCalculator.getRotation(curTime);
-        // Koordinatensystem anzeigen
-        // CoordSys.show( gl );
-
-        // RouletteKessel anzeigen
-        kessel.show(gl, angle);
+        kessel.setAngle(angle);
 
         Point3D p = ballCalculator.getBallPosition(curTime, -angle);
-        ball.show(p);
-
-        // ***** Aufräumen
-        gl.glPopMatrix();
+        ball.setPosition(p);
     }
 }

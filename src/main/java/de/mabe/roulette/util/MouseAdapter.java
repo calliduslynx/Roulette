@@ -1,4 +1,4 @@
-package de.mabe.roulette.model;
+package de.mabe.roulette.util;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
