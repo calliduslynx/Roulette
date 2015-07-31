@@ -18,14 +18,13 @@ dependencies {
     )
 }
 
+// TODO define main in manifest for jar
+
 
 
 // ***** make sure java 7 is used
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
-
-// ***** make sure UTF-8 is used
-tasks.withType(Compile) { options.encoding = 'UTF-8' }
 
 // ***** set the repositories
 repositories {
